@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  </head>
+  <body>
+
+    <!-- navigation -->
+    <div class="w3-bar w3-black w3-mobile">
+      <div class="w3-bar-item w3-mobile">
+        <h1>Feedback</h1>
+      </div>
+      {% if session['user_id'] %}
+      <div class="w3-bar-item w3-right w3-mobile">
+        <a href="/logout"><h5 class="w3-btn w3-ripple">logout</h5></a>
+      </div>
+      {% else %}
+      <div class="w3-bar-item w3-right w3-mobile">
+        <a href="/login"><h5 class="w3-btn w3-ripple">login</h5></a>
+      </div>
+
+      <div class="w3-bar-item w3-right w3-mobile">
+        <a href="/register"><h5 class="w3-btn w3-ripple">register</h5></a>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- flash messaging -->
+    <div class="w3-margin">
+      {% for msg in get_flashed_messages() %}
+      <div class="w3-light-blue w3-padding">
+        {{ msg }}
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- main content -->
+    <div class="w3-margin">
+      {% block content %}{% endblock %}
+    </div>
+
+  </body>
+</html>

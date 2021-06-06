@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}login{% endblock %}
+{% block content %}
+<h3>Login</h3>
+<div class="w3-tiny">Login below. No account? <a href="/register">register here</a></div>
+
+<form method="post">
+  {{ form.hidden_tag() }}
+
+  {% for field in form
+    if field.widget.input_type != 'hidden' %}
+    <div>
+      {{ field.label }}
+      {{ field }}
+
+      {% for error in field.errors %}
+        <div class="w3-text-red w3-tiny">
+          {{ error }}
+        </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <button class="w3-green" type="submit">Login</button>
+</form>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}feedback{% endblock %}
+{% block content %}
+<h3>Feedback</h3>
+
+<form method="post">
+  {{ form.hidden_tag() }}
+
+  {% for field in form
+    if field.widget.input_type != 'hidden' %}
+    <div>
+      {{ field.label }}
+      {{ field }}
+
+      {% for error in field.errors %}
+      <div class="w3-text-red w3-tiny">
+        {{ error }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <button class="w3-green" type="submit">Send</button>
+</form>
+<hr>
+
+{% for feedback in all_feedback %}
+<div class="w3-card-4 w3-border w3-round w3-text-light-blue">
+  <div class="w3-padding">{{feedback.text}}</div>
+  <div class="w3-right w3-tiny w3-text-black w3-padding">- {{feedback.user.username}}</div>
+  {% if session['user_id'] == feedback.user_id %}
+  <form class="w3-tiny w3-padding w3-text-red" action="/feedback/{{feedback.id}}" method="POST">
+    <button>delete</button>
+  </form>
+  {% endif %}
+
+</div><br>
+{% endfor %}
+{% endblock %}

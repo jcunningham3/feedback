@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}{{user.username}}{% endblock %}
+{% block content %}
+<h3>{{user.username}}</h3>
+<h3>personal info</h3>
+<div class="w3-card-4 w3-padding">
+  <div class="">
+    {{ user.email }}
+    {{user.first_name}}
+  </div>
+  <div class="">
+    {{ user.last_name }}
+  </div>
+
+</div>
+
+<h3>My Feedback</h3>
+{% for feed in feedback %}
+{% if feed.user_id == user.id %}
+<div class="w3-card-4 w3-padding">
+  <a class="w3-text-blue" href="#">{{feed.text}}</a>
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}
